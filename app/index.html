@@ -8,8 +8,14 @@
 </head>
 
 <body>
-    <h1>And below we can see the newest information</h1>
+    <!--These ng-href will link to the html files using the $routeParams that are fed in with the href-->
+    <a ng-href="#/city/New York">New York</a>
+    <a ng-href="#/city/Dallas">Dallas</a>
+    <a ng-href="#/city/Chicago">Chicago</a>
+
+    <!--NG-VIEW DIV - This is where the linked html will be displayed -->
     <div ng-view></div>
+
     <script type="text/javascript" src="bower_components/angular/angular.js"></script>
     <script type="text/javascript" src="bower_components/angular-route/angular-route.js"></script>
     <script type="text/javascript" src="owm-app.js"></script>
