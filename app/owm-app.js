@@ -11,7 +11,8 @@ angular.module('owmApp', ['ngRoute'])
     .controller('homeCtrl', function ($scope) {
 
     })
-    .controller('cityCtrl', function ($scope) {
-        $scope.city = 'New York';
+    .controller('cityCtrl', ['$routeParams', function ($scope, $routeParams)] {
+        $scope.city = $routeParams.city;
+
 
     });
