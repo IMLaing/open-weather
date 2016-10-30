@@ -1,6 +1,6 @@
 'use strict';
 
-var owmApp = angular.module('owmApp', ['ngRoute']); //  This gives access to the $routeProvider, $routeParams and $route
+var owmApp = angular.module('owmApp', ['ngRoute', 'ngAnimate']); //  This gives access to the $routeProvider, $routeParams and $route
 
 owmApp.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/', {
@@ -22,12 +22,19 @@ owmApp.config(['$routeProvider', function ($routeProvider) {
     }).when('/error', {
         template: '<p>Error - Page Not Found</p>' // note this uses template NOT templateUrl as you can see from the whitelist if statement above the path will be set to /error if the city doesn't exist in the whitelist cityArr value
     }).otherwise('/error');
-}]).run(function ($rootScope, $location) {
-    /*
-    Not sure what this adds to the app.config. 
-    */
+}]).run(function ($rootScope, $location, $timeout) {
     $rootScope.$on('$routeChangeError', function () {
         $location.path('/error');
+    });
+    $rootScope.$on('$routeChangeStart', function () {
+        console.log('true');
+        $rootScope.isLoading = true;
+    });
+    $rootScope.$on('$routeChangeSuccess', function () {
+        $timeout(function () {
+            console.log('false');
+            $rootScope.isLoading = false;
+        }, 1000);
     });
 });
 

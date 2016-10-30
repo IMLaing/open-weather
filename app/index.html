@@ -5,19 +5,22 @@
     <meta charset="UTF-8">
     <title>Open Weather</title>
     <link rel="shortcut icon" href="">
+    <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body ng-class="{loading: isLoading}">
     <!--These ng-href will link to the html files using the $routeParams that are fed in with the href-->
     <a ng-href="#/city/New York">New York</a>
     <a ng-href="#/city/Dallas">Dallas</a>
     <a ng-href="#/city/Chicago">Chicago</a>
 
     <!--NG-VIEW DIV - This is where the linked html will be displayed -->
-    <div ng-view></div>
-
+    <div class="animate-view-container">
+        <div ng-view class="animate-view"></div>
+    </div>
     <script type="text/javascript" src="bower_components/angular/angular.js"></script>
     <script type="text/javascript" src="bower_components/angular-route/angular-route.js"></script>
+    <script type="text/javascript" src="bower_components/angular-animate/angular-animate.js"></script>
     <script type="text/javascript" src="owm-app.js"></script>
 </body>
 

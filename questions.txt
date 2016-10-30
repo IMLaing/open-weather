@@ -1,5 +1,6 @@
 questions
 
+research Factories - 
 
 .run(function ($rootScope, $location) {
     $rootScope.$on('$routeChangeError', function () {
@@ -13,3 +14,5 @@ What does the $location service let you do?
 The $location service lets you modify the (#) location of the url (the route) by use of the path function.
 
 
+What is $templateCache?
+$templateCache is a storage for the templates that have been loaded already so we can refetch them quickly.
