@@ -1,0 +1,15 @@
+questions
+
+
+.run(function ($rootScope, $location) {
+    $rootScope.$on('$routeChangeError', function () {
+    $location.path('/error');
+});
+
+How do you detect variables in URLs in Angular?? 
+:var[?] prefix with : to denote a named param suffix with ? to denote optional
+
+What does the $location service let you do?
+The $location service lets you modify the (#) location of the url (the route) by use of the path function.
+
+

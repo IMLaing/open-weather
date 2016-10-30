@@ -1,6 +1,6 @@
 'use strict';
 
-var owmApp = angular.module('owmApp', ['ngRoute']);
+var owmApp = angular.module('owmApp', ['ngRoute']); //  This gives access to the $routeProvider, $routeParams and $route
 
 owmApp.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/', {
@@ -9,7 +9,7 @@ owmApp.config(['$routeProvider', function ($routeProvider) {
     }).when('/city/:city', { // This states the /:city will be the first returned as $routeParams.city
         templateUrl: 'city.html', //this will be the HTML file used
         controller: 'cityCtrl', //The controller to be useable on this ng-view
-        resolve: {
+        resolve: { // resolve will only return the information once its code block has ran - useful for when data must be retrieved from a DB
             city: function (cityArr, $route, $location) {
                 var city = $route.current.params.city;
                 if (cityArr.indexOf(city) === -1) {
@@ -20,9 +20,16 @@ owmApp.config(['$routeProvider', function ($routeProvider) {
             }
         }
     }).when('/error', {
-        template: '<p>Error - Page Not Found</p>' // as you can see from the whitelist if statement above the path will be set to /error if the city doesn't exist in the whitelist cityArr value
+        template: '<p>Error - Page Not Found</p>' // note this uses template NOT templateUrl as you can see from the whitelist if statement above the path will be set to /error if the city doesn't exist in the whitelist cityArr value
+    }).otherwise('/error');
+}]).run(function ($rootScope, $location) {
+    /*
+    Not sure what this adds to the app.config. 
+    */
+    $rootScope.$on('$routeChangeError', function () {
+        $location.path('/error');
     });
-}]);
+});
 
 owmApp.value('cityArr', ['New York', 'Dallas', 'CHI']);
 
@@ -30,11 +37,6 @@ owmApp.controller('homeCtrl', function ($scope) {
     //Empty Controller
 });
 
-owmApp.controller('cityCtrl', function ($scope, $routeParams, cityArr) { //uses the $routeParams service which is built in to AngularJS - ngRoute 
-    var cityCurrent = $routeParams.city; //the city variable in the html gets ther parameter of city for the cityCurrent
-    if (cityArr.indexOf(cityCurrent) === -1) {
-        console.log('city not found');
-        return;
-    }
-    $scope.city = cityCurrent; //this is the else of the if statement
+owmApp.controller('cityCtrl', function ($scope, $routeParams, city) { //uses the $routeParams service which is built in to AngularJS - ngRoute 
+    $scope.city = city;
 });
